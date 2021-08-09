@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/tailwind.css">
+</head>
+
+<body class="h-screen w-100 flex justify-center items-center bg-black ">
+  <div
+    class=" login flex flex-col items-center justify-around space-y-5 p-16 bg-gray-900 rounded-lg border-2 border-gray-500">
+    <p class="text-white text-lg font-bold">Login to Game</p>
+    <input type="text"
+      class="username text-yellow-500 w-64 px-4 py-3 rounded-md focus:outline-none bg-gray-700 border border-black hover:border-yellow-500 hover:bg-black ">
+    <input type="password"
+      class="password text-yellow-500 w-64 px-4 py-3 rounded-md focus:outline-none bg-gray-700 border border-black hover:border-yellow-500 hover:bg-black">
+    <button class="mt-4 lg:m-0 bg-yellow-500 text-black w-52 md:w-56 lg:w-5/12 px-4 py-2 rounded-md 
+    hover:bg-black hover:text-yellow-500 border border-transparent hover:border-yellow-500 font-bold" type="submit"
+      onclick="login()">Login</button>
+  </div>
+
+  <script>
+    let login = () => {
+      let username = document.querySelector(".username")
+      let password = document.querySelector(".password")
+
+      let config = {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: username.value,
+          password: password.value
+        })
+      }
+
+      fetch("/login", config)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          alert(result.message)
+          if (result.message === "Login Successful") {
+            sessionStorage.setItem("user-data", JSON.stringify(result.data))
+            sessionStorage.setItem("isLogged", true)
+            window.location.href = "/"
+          }
+        })
+        .catch(err => console.log(err))
+
+
+    }
+  </script>
+</body>
+
+</html>
