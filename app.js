@@ -1,23 +1,28 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const morgan = require("morgan");
 const mysql = require("mysql");
-const app = express();
-const port = process.env.PORT || 5000;
+const path = require("path");
+const PORT = process.env.PORT || 8080;
 
-app.use(morgan("dev"));
+dotenv.config({ path: "config.env" });
+
+//log requests
+const app = express();
+app.use(morgan("tiny"));
+
+//parse requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static("public"));
-
 app.set("view engine", "ejs");
 
-app.listen(port, () => {
-   console.log("listening");
+app.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
 });
 
-const Routes = require("./routes/Routes");
+const Routes = require("./server/routes/Routes");
 app.use(Routes);
 
 // const con = mysql.createConnection({
