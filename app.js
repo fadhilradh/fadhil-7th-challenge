@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const morgan = require("morgan");
+const mysql = require("mysql");
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -12,42 +14,19 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.listen(port, () => {
-  console.log("listening");
+   console.log("listening");
 });
 
-const userData = {
-  username: "fadhil",
-  password: "12345",
-  fullname: "Fadhil Radhian",
-  age: "18",
-  address: "Semarang",
-};
+const Routes = require("./routes/Routes");
+app.use(Routes);
 
-const { password, ...safeData } = userData;
+// const con = mysql.createConnection({
+//    host: "localhost",
+//    user: "root",
+//    password: "",
+// });
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.get("/game", (req, res) => {
-  res.render("game");
-});
-
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.post("/login", (req, res) => {
-  const loginReq = req.body;
-  if (loginReq.username !== userData.username) {
-    res.status(400).send({
-      message: "Username is not registered",
-    });
-  } else if (loginReq.password !== userData.password) {
-    res.status(400).send({ message: "Password is incorrect" });
-  }
-  res.status(200).send({
-    message: "Login Successful",
-    data: safeData,
-  });
-});
+// con.connect(function (err) {
+//    if (err) throw err;
+//    console.log("Connected!");
+// });
