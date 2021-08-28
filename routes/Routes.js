@@ -22,6 +22,11 @@ const userData = {
    address: "Semarang",
 };
 
+const superAdmin = {
+   username: "admin",
+   password: "admin123",
+};
+
 const { password, ...safeData } = userData;
 
 Routes.post("/register", UsersControllers.Register);
@@ -34,6 +39,13 @@ Routes.post("/login", (req, res) => {
       });
    } else if (loginReq.password !== userData.password) {
       res.status(400).send({ message: "Password is incorrect" });
+   } else if (
+      loginReq.username === superAdmin.username &&
+      loginReq.password === superAdmin.password
+   ) {
+      res.status(200).send({
+         message: "Super Admin Login Successful",
+      });
    }
    res.status(200).send({
       message: "Login Successful",
