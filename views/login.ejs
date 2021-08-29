@@ -48,6 +48,9 @@
             sessionStorage.setItem("user-data", JSON.stringify(result.data))
             sessionStorage.setItem("isLogged", true)
             window.location.href = "/"
+          } else if (result.message = "Super Admin Login Successful") {
+            sessionStorage.setItem("isLogged", true)
+            window.location.href = "/dashboard"
           }
         })
         .catch(err => console.log(err))
