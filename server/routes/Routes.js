@@ -10,6 +10,18 @@ Routes.get("/", (req, res) => {
 
 Routes.get("/login", UsersControllers.Login);
 
+Routes.get("/dashboard", (req, res) => {
+  res.render("dashboard");
+});
+
+Routes.get("/add-user", (req, res) => {
+  res.render("add-user");
+});
+
+Routes.get("/update-user", (req, res) => {
+  res.render("update-user");
+});
+
 Routes.get("/sequelize", SequelizeControllers.Tester);
 
 const userData = {
