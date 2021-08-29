@@ -14,7 +14,7 @@
   },
   "name": "finalassignment",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fadhilradh/Binar-3rd-Class.git"
@@ -22,7 +22,7 @@
   "author": "Fadhil Radhian <fadhilradhian@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon server.js"
   },
   "description": "",
   "bugs": {
