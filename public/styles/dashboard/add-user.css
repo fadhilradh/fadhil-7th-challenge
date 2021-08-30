@@ -129,7 +129,14 @@
  #update_user .form-group .btn:hover, 
  #add_user .form-group .btn:hover {
    background-color: var(--dark);
-   color: var(--border);
+   color: var(--border); 
+ }
+
+
+ #update_user .radio-group, 
+ #add_user .radio-group{
+  display: flex;
+  gap: 16px;
  }
 
 

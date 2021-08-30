@@ -1,4 +1,4 @@
-<form id="update_user" method="POST">
+<form action="/api/users" id="add_user" method="POST">
   <div class="new-user">
 
     <div class="form-group">
@@ -24,7 +24,20 @@
 
     <div class="form-group">
       <label for="bio" class="text-light">About Yourself</label>
-      <input type="text" name="bio" value="">
+      <input type="textarea" name="bio" value="">
+    </div>
+
+    <div class="radio-group">
+      <label for="role" class="text-light">Role</label>
+      <div class="radio inline">
+        <input type="radio" name="role" value="user">
+        <label for="role" class="text-light">User</label>
+      </div>
+
+      <div class="radio inline">
+        <input type="radio" name="role" value="admin">
+        <label for="role" class="text-light">Admin</label>
+      </div>
     </div>
 
     <div class="form-group">

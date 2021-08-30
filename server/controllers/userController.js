@@ -12,12 +12,14 @@ exports.create = (req, res) => {
     fullname: req.body.fullname,
     email: req.body.email,
     password: req.body.password,
+    bio: req.body.bio,
+    role: req.body.role,
   });
 
   newUser
     .save(newUser)
     .then((data) => {
-      res.send(data);
+      res.redirect("/dashboard");
     })
     .catch((err) => {
       res.status(500).send({
@@ -28,15 +30,33 @@ exports.create = (req, res) => {
 
 // retrieve all users / single user
 exports.find = (req, res) => {
-  UserDB.find()
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Error occured while finding user",
+  if (req.query.id) {
+    const id = req.query.id;
+
+    UserDB.findById(id)
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({ message: "User not found" });
+          return;
+        }
+        res.send(data);
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: err.message || "Error while getting user by id" });
       });
-    });
+  } else {
+    UserDB.find()
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error occured while finding user",
+        });
+      });
+  }
 };
 
 // update an existing user

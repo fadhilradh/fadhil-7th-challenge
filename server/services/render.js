@@ -1,3 +1,5 @@
+const axios = require("../services/__http");
+
 exports.homeRoute = (req, res) => {
   res.render("index");
 };
@@ -7,7 +9,14 @@ exports.loginRoute = (req, res) => {
 };
 
 exports.dashboardRoute = (req, res) => {
-  res.render("dashboard");
+  axios
+    .http()
+    .then((response) => {
+      res.render("dashboard", { users: response.data });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 exports.gameRoute = (req, res) => {
@@ -19,5 +28,12 @@ exports.add_user = (req, res) => {
 };
 
 exports.update_user = (req, res) => {
-  res.render("update-user");
+  axios
+    .http({ params: { id: req.query.id } })
+    .then((response) => {
+      res.render("update-user", { user: response.data });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };

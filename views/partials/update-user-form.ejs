@@ -1,0 +1,51 @@
+<form action="/api/users?<%=user._id%>?_method=PUT" method="post" id="update_user">
+  <div class="new-user">
+
+    <div class="form-group">
+      <label for="username" class="text-light">Username</label>
+      <input type="hidden" name="id" value="<%=user._id%> 
+      ">
+      <input type="text" name="username" value="<%=user.username%> 
+      ">
+    </div>
+
+    <div class="form-group">
+      <label for="fullname" class="text-light">Full Name</label>
+      <input type="text" name="fullname" value="<%=user.fullname%>">
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="text-light">Email</label>
+      <input type="text" name="email" value="<%=user.email%>">
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="text-light">Password</label>
+      <input type="password" name="password" value="<%=user.password%>">
+    </div>
+
+    <div class="form-group">
+      <label for="bio" class="text-light">About Yourself</label>
+      <input type="text" name="bio" value="<%=user.bio%>">
+    </div>
+
+    <div class="radio-group">
+      <label for="role" class="text-light">Role</label>
+      <div class="radio inline">
+        <input type="radio" name="role" value="user" <%=user.role == "user" ? "checked" : ""%>>
+        <label for="role" class="text-light">User</label>
+      </div>
+
+      <div class="radio inline">
+        <input type="radio" name="role" value="admin" <%=user.role == "admin" ? "checked" : ""%>>
+        <label for="role" class="text-light">Admin</label>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="text-dark update btn">Save</button>
+    </div>
+
+  </div>
+</form>

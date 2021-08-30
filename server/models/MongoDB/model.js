@@ -17,6 +17,14 @@ var schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bio: {
+    type: String,
+    required: false,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
 });
 
 const UserDB = mongoose.model("userdb", schema);

@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 const morgan = require("morgan");
 const mysql = require("mysql");
 const path = require("path");
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 5000;
 const route = require("./server/routes/router");
 const connectDB = require("./server/database/connection");
 
