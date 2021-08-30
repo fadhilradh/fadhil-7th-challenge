@@ -13,7 +13,7 @@
 <body class="h-screen w-100 flex justify-center items-center bg-black ">
   <div
     class=" login flex flex-col items-center justify-around space-y-5 p-16 bg-gray-900 rounded-lg border-2 border-gray-500">
-    <p class="text-white text-lg font-bold">Login to Game</p>
+    <p class="text-white text-2xl text-yellow-500">Login with email</p>
     <input type="text"
       class="username text-yellow-500 w-64 px-4 py-3 rounded-md focus:outline-none bg-gray-700 border border-black hover:border-yellow-500 hover:bg-black ">
     <input type="password"
@@ -48,9 +48,11 @@
             sessionStorage.setItem("user-data", JSON.stringify(result.data))
             sessionStorage.setItem("isLogged", true)
             window.location.href = "/"
-          } else if (result.message = "Super Admin Login Successful") {
+          } else if (result.message === "Super Admin Login Successful") {
             sessionStorage.setItem("isLogged", true)
             window.location.href = "/dashboard"
+          } else {
+            return
           }
         })
         .catch(err => console.log(err))

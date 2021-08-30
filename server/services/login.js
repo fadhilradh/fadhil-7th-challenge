@@ -12,6 +12,7 @@ exports.authenticate = (req, res) => {
       res.status(200).send({
         message: "Super Admin Login Successful",
       });
+      return;
     }
     res.status(400).send({
       message: "Username is not registered",
