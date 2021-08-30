@@ -69,8 +69,12 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .text-gradient:hover {
+    filter: brightness(200%)
+  }
+
   #header nav {
-    background-color: #06d6a0;
+    background-color: #F59E0C;
     padding: 1em 0;
     width: 100%;
   }
@@ -98,6 +102,7 @@
     vertical-align: top;
     text-align: center;
     border-top: 1px solid var(--border);
+    color: var(--light)
   }
 
   .table td > a.btn {
@@ -107,8 +112,13 @@
   }
 
   .table tr:hover {
-    background-color: #06d6a0;
+    background-color: #F59E0C;
     cursor: pointer;
+    color: var(--dark )
+  }
+
+  .table tr:hover td{
+    color: var(--dark )
   }
 
   .table tr:hover td>a {

@@ -11,6 +11,10 @@
     font-family: "Poppins", sans-serif;
   }
 
+  body {
+    background-color: black
+  }
+
   * {
     padding: 0;
     margin: 0;
@@ -25,6 +29,13 @@
   .container {
     max-width: 1024px;
     margin: auto;
+  }
+
+  .header-container {
+    max-width: 1024px;
+    margin: auto;
+    display:flex;
+    align-items: center;
   }
 
   .nav-brand {
@@ -70,7 +81,7 @@
   }
 
   #header nav {
-    background-color: #06d6a0;
+    background-color: #F59E0C;
     padding: 1em 0;
     width: 100%;
   }
@@ -118,7 +129,7 @@
  #add_user .form-group .btn {
   width: 100%;
   padding: .9em 1em;
-  background-color: #16db93;
+  background-color: #F59E0C; 
   border: none;
   font-size: 1em;
   cursor: pointer;
