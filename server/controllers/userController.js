@@ -16,6 +16,13 @@ exports.create = (req, res) => {
     role: req.body.role,
   });
 
+  UserDB.find({"username" : req.body.username}).then(response=>{
+    console.log("Username already exist")
+    if (response.length > 0) {
+      
+    }
+  })
+
   newUser
     .save(newUser)
     .then((data) => {
