@@ -16,6 +16,7 @@ exports.login = (req, res) => {
           res.status(200).send({ message: "Login Successful", data: data });
           return
         }
+        
         res.status(404).send({ message: "Username or password is incorrect" });
       })
       .catch((err) => {

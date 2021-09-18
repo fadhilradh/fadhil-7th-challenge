@@ -22,8 +22,8 @@
     hover:bg-black hover:text-yellow-500 border border-transparent hover:border-yellow-500 font-bold" type="submit"
       onclick="login()">Login</button>
   </div>
+  <script >
 
-  <script>
     let login = () => {
       let username = document.querySelector(".username")
       let password = document.querySelector(".password")
@@ -42,14 +42,15 @@
       fetch("/login", config)
         .then(response => response.json())
         .then(result => {
-          console.log(result)
           alert(result.message)
-          if (result.message === "Login Successful") {
+          console.log(result.status)
+          if (result.message === "Login Successful" && result.data.role === "user") {
             sessionStorage.setItem("user-data", JSON.stringify(result.data))
             sessionStorage.setItem("isLogged", true)
             window.location.href = "/"
-          } else if (result.message === "Super Admin Login Successful") {
+          } else if (result.message === "Login Successful" && result.data.role === "admin") {
             sessionStorage.setItem("isLogged", true)
+            sessionStorage.setItem("user-data", JSON.stringify(result.data))
             window.location.href = "/dashboard"
           } else {
             return

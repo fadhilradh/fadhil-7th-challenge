@@ -315,6 +315,7 @@
 
     const logOut = () => {
       sessionStorage.setItem("isLogged", false)
+      sessionStorage.removeItem("user-data")
 
       document.querySelector(".logout").remove()
       const login = document.createElement("a")
