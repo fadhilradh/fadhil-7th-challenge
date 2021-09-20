@@ -7,10 +7,10 @@ const morgan = require("morgan");
 const mysql = require("mysql");
 const methodOverride = require("method-override");
 const path = require("path");
-const route = require("./server/routes/router");
-const socketio = require("socket.io");
-const {userConnected, connectedUsers, makeMove, initializeChoices, moves, choices} = require("./socket/users")
-const {rooms, createRoom, joinRoom, exitRoom} = require("./socket/rooms")
+const routes = require("./server/routes/router");
+// const socketio = require("socket.io");
+// const {userConnected, connectedUsers, makeMove, initializeChoices, moves, choices} = require("./socket/users")
+// const {rooms, createRoom, joinRoom, exitRoom} = require("./socket/rooms")
 
 
 const app = express();
@@ -24,59 +24,59 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
-app.use(route);
+app.use(routes);
 
 
 
-const server = http.createServer(app)
+// const server = http.createServer(app)
 
-const io = socketio(server)
+// const io = socketio(server)
 
-io.on("connection", socket => {
-  socket.on("create-room", (roomId) =>{
-    if(rooms[roomId]) {
-      const error = "This room already exists"
-      socket.emit("display-error", error)
-      return
-    }
-      userConnected(socket.client.id)
-      createRoom(roomId, socket.client.id)
-      socket.emit("room-created", roomId)
-      socket.emit("player-1-connected");
-      socket.join(roomId)
-  })
+// io.on("connection", socket => {
+//   socket.on("create-room", (roomId) =>{
+//     if(rooms[roomId]) {
+//       const error = "This room already exists"
+//       socket.emit("display-error", error)
+//       return
+//     }
+//       userConnected(socket.client.id)
+//       createRoom(roomId, socket.client.id)
+//       socket.emit("room-created", roomId)
+//       socket.emit("player-1-connected");
+//       socket.join(roomId)
+//   })
 
-  socket.on("join-room", roomId => {
-    if(!rooms[roomId]) {
-      const error = "This room does not exists"
-      socket.emit("display-error", error)
-      return
-    }
-      userConnected(socket.client.id)
-      joinRoom(roomId, socket.client.id)
-      socket.emit("room-joined", roomId)
-      socket.emit("player-2-connected");
-      socket.join(roomId)
-  })
+//   socket.on("join-room", roomId => {
+//     if(!rooms[roomId]) {
+//       const error = "This room does not exists"
+//       socket.emit("display-error", error)
+//       return
+//     }
+//       userConnected(socket.client.id)
+//       joinRoom(roomId, socket.client.id)
+//       socket.emit("room-joined", roomId)
+//       socket.emit("player-2-connected");
+//       socket.join(roomId)
+//   })
 
-  socket.on("join-random", () => {
-    let roomId = ""
+//   socket.on("join-random", () => {
+//     let roomId = ""
 
-    for (let id in rooms) {
-      if(rooms[id][1] === "" ) {
-        roomId = id
-        break
-      }
-    }
+//     for (let id in rooms) {
+//       if(rooms[id][1] === "" ) {
+//         roomId = id
+//         break
+//       }
+//     }
 
-    if(roomId === "") {
-      const error = "All rooms are full or non existed"
-      socket.emit("display-error", error)
-    }
-  })
-})
+//     if(roomId === "") {
+//       const error = "All rooms are full or non existed"
+//       socket.emit("display-error", error)
+//     }
+//   })
+// })
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
 });
 
