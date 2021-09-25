@@ -49,6 +49,7 @@
 
       <div id="login-container" class="w-auto space-x-10 flex">
         <a id="login" href="/login">Login</a>
+        <a id="register" href="/register">Register</a>
       </div>
     </div>
 
@@ -325,6 +326,7 @@
       document.querySelector("#login-container").appendChild(login)
 
       document.querySelector(".username").remove()
+      alert("You are now logged out")
     }
 
     const showUserName = (username) => {
@@ -347,11 +349,10 @@
     }
 
     if (isLoggedIn) {
-      const fullname = userData.fullname
-      showUserName(fullname)
+      showUserName(userData.username)
 
       document.querySelector("#login").remove()
-
+      document.querySelector("#register").remove()
       createLogOutLink()
     }
   </script>

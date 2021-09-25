@@ -1,18 +1,19 @@
 const express = require("express");
 const route = express.Router();
 const render = require("../services/render");
-// const login = require("../services/login");
-const userCRUDController = require("../controllers/userController");
+const userCRUDController = require("../controllers/dashboardController");
 const authController = require("../controllers/authController");
 
 route.get("/", render.homeRoute);
 route.get("/login", render.loginRoute);
+route.get("/register", render.registerRoute);
 route.get("/dashboard", render.dashboardRoute);
 route.get("/add-user", render.add_user);
 route.get("/update-user", render.update_user);
-route.get("/game", render.gameRoute)
+route.get("/game", render.gameRoute);
 
 route.post("/login", authController.login);
+route.post("/register", authController.register);
 
 // API
 

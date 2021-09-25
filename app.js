@@ -1,10 +1,8 @@
 const bodyParser = require("body-parser");
 const connectDB = require("./server/database/connection");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const express = require("express");
-const http = require("http");
 const morgan = require("morgan");
-const mysql = require("mysql");
 const methodOverride = require("method-override");
 const path = require("path");
 const routes = require("./server/routes/router");
@@ -12,21 +10,17 @@ const routes = require("./server/routes/router");
 // const {userConnected, connectedUsers, makeMove, initializeChoices, moves, choices} = require("./socket/users")
 // const {rooms, createRoom, joinRoom, exitRoom} = require("./socket/rooms")
 
-
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-dotenv.config({ path: "config.env" });
-
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(morgan("tiny"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.set("view engine", "ejs");
 app.use(routes);
 
-
+app.set("view engine", "ejs");
 
 // const server = http.createServer(app)
 
@@ -76,8 +70,6 @@ app.use(routes);
 //   })
 // })
 
-app.listen(PORT, () => {
-  console.log(`listening on http://localhost:${PORT}`);
-});
-
 connectDB();
+
+module.exports = app;

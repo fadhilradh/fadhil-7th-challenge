@@ -4,7 +4,7 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login</title>
+      <title>Register</title>
       <link
          href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
          rel="stylesheet"
@@ -13,7 +13,8 @@
    </head>
 
    <body class="h-screen w-100 flex justify-center items-center bg-black">
-      <div
+      <form
+         onsubmit="register()"
          class="
             login
             flex flex-col
@@ -26,13 +27,30 @@
             border-2 border-gray-500
          "
       >
-         <p class="text-white text-2xl text-yellow-500">Login</p>
+         <p class="text-white text-2xl text-yellow-500">Register</p>
          <input
             required
             type="text"
             placeholder="Username"
             class="
                username
+               text-yellow-500
+               w-64
+               px-4
+               py-3
+               rounded-md
+               focus:outline-none
+               bg-gray-700
+               border border-black
+               hover:border-yellow-500 hover:bg-black
+            "
+         />
+         <input
+            required
+            type="email"
+            placeholder="Email"
+            class="
+               email
                text-yellow-500
                w-64
                px-4
@@ -61,7 +79,7 @@
                hover:border-yellow-500 hover:bg-black
             "
          />
-         <button
+         <input
             class="
                mt-4
                lg:m-0
@@ -77,17 +95,18 @@
                border border-transparent
                hover:border-yellow-500
                font-semibold
+               hover:cursor-pointer
             "
             type="submit"
-            onclick="login()"
          >
-            Login
-         </button>
-      </div>
+            Register
+         </input>
+      </form>
       <script>
-         const login = async () => {
+         let register = async () => {
             let username = document.querySelector(".username");
             let password = document.querySelector(".password");
+            let email = document.querySelector(".email");
 
             let config = {
                method: "post",
@@ -97,40 +116,26 @@
                body: JSON.stringify({
                   username: username.value,
                   password: password.value,
+                  email: email.value,
                }),
             };
 
             try {
-               const response = await fetch("/login", config);
-               const json = await response.json();
-
-               alert(json.message);
-               console.log(json);
-               if (
-                  json.message === "Login Successful" &&
-                  json.data.role === "user"
-               ) {
-                  sessionStorage.setItem(
-                     "user-data",
-                     JSON.stringify(json.data)
-                  );
-                  sessionStorage.setItem("isLogged", true);
-                  window.location.href = "/";
+               const response = await fetch("/register", config);
+               const jsonData = await response.json();
+               if (jsonData.message === "Successfully registered") {
+                  alert(jsonData.message);
+                  window.location.href = "/login";
                } else if (
-                  json.message === "Login Successful" &&
-                  json.data.role === "admin"
+                  jsonData.message === "User Already Exist. Please Login"
                ) {
-                  sessionStorage.setItem("isLogged", true);
-                  sessionStorage.setItem(
-                     "user-data",
-                     JSON.stringify(json.data)
-                  );
-                  window.location.href = "/dashboard";
+                  alert(jsonData.message);
+                  window.location.href = "/login";
                } else {
-                  return;
+                  alert(jsonData.message);
                }
-            } catch (err) {
-               console.error(err);
+            } catch (e) {
+               console.error(e);
             }
          };
       </script>
