@@ -14,6 +14,7 @@
 
    <body class="h-screen w-100 flex justify-center items-center bg-black">
       <form
+         id="registerForm"
          onsubmit="register()"
          class="
             login
@@ -28,57 +29,68 @@
          "
       >
          <p class="text-white text-2xl text-yellow-500">Register</p>
-         <input
-            required
-            type="text"
-            placeholder="Username"
-            class="
-               username
-               text-yellow-500
-               w-64
-               px-4
-               py-3
-               rounded-md
-               focus:outline-none
-               bg-gray-700
-               border border-black
-               hover:border-yellow-500 hover:bg-black
-            "
-         />
-         <input
-            required
-            type="email"
-            placeholder="Email"
-            class="
-               email
-               text-yellow-500
-               w-64
-               px-4
-               py-3
-               rounded-md
-               focus:outline-none
-               bg-gray-700
-               border border-black
-               hover:border-yellow-500 hover:bg-black
-            "
-         />
-         <input
-            required
-            type="password"
-            placeholder="Password"
-            class="
-               password
-               text-yellow-500
-               w-64
-               px-4
-               py-3
-               rounded-md
-               focus:outline-none
-               bg-gray-700
-               border border-black
-               hover:border-yellow-500 hover:bg-black
-            "
-         />
+         <div class="flex flex-col gap-1">
+            <label class="text-yellow-500 text-left">Username</label>
+            <input
+               required
+               type="text"
+               placeholder="Fill your username"
+               class="
+                  username
+                  text-yellow-500
+                  w-64
+                  px-4
+                  py-3
+                  rounded-md
+                  focus:outline-none
+                  bg-gray-700
+                  border border-black
+                  hover:border-yellow-500 hover:bg-black
+               "
+            />
+         </div>
+         <div class="flex flex-col gap-1">
+            <label class="text-yellow-500 text-left">Email</label>
+            <input
+               required
+               type="email"
+               placeholder="example@test.com"
+               class="
+                  email
+                  text-yellow-500
+                  w-64
+                  px-4
+                  py-3
+                  rounded-md
+                  focus:outline-none
+                  bg-gray-700
+                  border border-black
+                  hover:border-yellow-500 hover:bg-black
+               "
+            />
+         </div>
+         <div class="flex flex-col gap-1">
+            <label class="text-yellow-500 text-left">Password</label>
+            <input
+               required
+               type="password"
+               placeholder="Password (min 6 characters)"
+               pattern=".{6,}"
+               title="Password should be at least 6 characters"
+               class="
+                  password
+                  text-yellow-500
+                  w-64
+                  px-4
+                  py-3
+                  rounded-md
+                  focus:outline-none
+                  bg-gray-700
+                  border border-black
+                  hover:border-yellow-500 hover:bg-black
+               "
+            />
+         </div>
          <input
             class="
                mt-4
@@ -95,14 +107,21 @@
                border border-transparent
                hover:border-yellow-500
                font-semibold
-               hover:cursor-pointer
+               cursor-pointer
             "
             type="submit"
-         >
-            Register
-         </input>
+         />
+         <p class="text-yellow-500">
+            Already registered? Login
+            <a class="underline" href="/login">here</a>
+         </p>
       </form>
       <script>
+         document
+            .getElementById("registerForm")
+            .addEventListener("submit", function (event) {
+               event.preventDefault();
+            });
          let register = async () => {
             let username = document.querySelector(".username");
             let password = document.querySelector(".password");
@@ -124,10 +143,12 @@
                const response = await fetch("/register", config);
                const jsonData = await response.json();
                if (jsonData.message === "Successfully registered") {
-                  alert(jsonData.message);
+                  alert(
+                     "Successfully registered. Please login with your account"
+                  );
                   window.location.href = "/login";
                } else if (
-                  jsonData.message === "User Already Exist. Please Login"
+                  jsonData.message === "User already exist. Please login"
                ) {
                   alert(jsonData.message);
                   window.location.href = "/login";

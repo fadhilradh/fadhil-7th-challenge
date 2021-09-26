@@ -27,40 +27,44 @@
          "
       >
          <p class="text-white text-2xl text-yellow-500">Login</p>
-         <input
-            required
-            type="text"
-            placeholder="Username"
-            class="
-               username
-               text-yellow-500
-               w-64
-               px-4
-               py-3
-               rounded-md
-               focus:outline-none
-               bg-gray-700
-               border border-black
-               hover:border-yellow-500 hover:bg-black
-            "
-         />
-         <input
-            required
-            type="password"
-            placeholder="Password"
-            class="
-               password
-               text-yellow-500
-               w-64
-               px-4
-               py-3
-               rounded-md
-               focus:outline-none
-               bg-gray-700
-               border border-black
-               hover:border-yellow-500 hover:bg-black
-            "
-         />
+         <div class="flex flex-col gap-1">
+            <label class="text-yellow-500 text-left">Username</label>
+            <input
+               required
+               type="text"
+               class="
+                  username
+                  text-yellow-500
+                  w-64
+                  px-4
+                  py-3
+                  rounded-md
+                  focus:outline-none
+                  bg-gray-700
+                  border border-black
+                  hover:border-yellow-500 hover:bg-black
+               "
+            />
+         </div>
+         <div class="flex flex-col gap-1">
+            <label class="text-yellow-500 text-left">Password</label>
+            <input
+               required
+               type="password"
+               class="
+                  password
+                  text-yellow-500
+                  w-64
+                  px-4
+                  py-3
+                  rounded-md
+                  focus:outline-none
+                  bg-gray-700
+                  border border-black
+                  hover:border-yellow-500 hover:bg-black
+               "
+            />
+         </div>
          <button
             class="
                mt-4
@@ -83,6 +87,10 @@
          >
             Login
          </button>
+         <p class="text-yellow-500">
+            Don't have an account ? Register
+            <a class="underline" href="/register">here</a>
+         </p>
       </div>
       <script>
          const login = async () => {
@@ -115,12 +123,14 @@
                      JSON.stringify(json.data)
                   );
                   sessionStorage.setItem("isLogged", true);
+                  sessionStorage.setItem("token", JSON.stringify(json.token));
                   window.location.href = "/";
                } else if (
                   json.message === "Login Successful" &&
                   json.data.role === "admin"
                ) {
                   sessionStorage.setItem("isLogged", true);
+                  sessionStorage.setItem("token", JSON.stringify(json.token));
                   sessionStorage.setItem(
                      "user-data",
                      JSON.stringify(json.data)

@@ -20,8 +20,6 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/socket.js"></script>
 </head>
 
 <body>
@@ -47,7 +45,7 @@
       </div>
 
 
-      <div id="login-container" class="w-auto space-x-10 flex">
+      <div id="login-container" class="w-auto space-x-10 flex gap-5">
         <a id="login" href="/login">Login</a>
         <a id="register" href="/register">Register</a>
       </div>
@@ -317,13 +315,22 @@
     const logOut = () => {
       sessionStorage.setItem("isLogged", false)
       sessionStorage.removeItem("user-data")
+      sessionStorage.removeItem("token")
 
       document.querySelector(".logout").remove()
       const login = document.createElement("a")
-      const loginText = document.createTextNode("Log In")
+      const loginText = document.createTextNode("Login")
       login.appendChild(loginText)
       login.setAttribute("href", "/login")
+      login.id="login"
       document.querySelector("#login-container").appendChild(login)
+
+      const register = document.createElement("a")
+      const registerText = document.createTextNode("Register")
+      register.appendChild(registerText)
+      register.setAttribute("href", "/register")
+      register.id="register"
+      document.querySelector("#login-container").appendChild(register)
 
       document.querySelector(".username").remove()
       alert("You are now logged out")
